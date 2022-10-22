@@ -2,25 +2,21 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Home from "./components/home/Home";
-import Create from "./components/create/Create";
-import Search from "./components/search/Search";
-import Recipe from "./components/recipe/Recipe";
+import Home from "./pages/home/Home";
+import Create from "./pages/create/Create";
+import Search from "./pages/search/Search";
+import Recipe from "./pages/recipe/Recipe";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/create">Create</Link>
-          <Link to="/recipe">Recipe</Link>
-          <Link to="/search">Search</Link>
-        </nav>
+        <Navbar />
+
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/create" element={<Create />}></Route>
