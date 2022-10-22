@@ -15,7 +15,7 @@ export default function useFetch(url) {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        const json = res.json();
+        const json = await res.json();
         setIsPending(false);
         setData(json);
         setError(null);
@@ -28,11 +28,11 @@ export default function useFetch(url) {
         }
       }
     };
-    getData();
+    getData(url);
     return () => {
       controller.abort();
     };
   }, [url]);
 
-  return { data, isPending, err };
+  return { data, isPending, error };
 }
