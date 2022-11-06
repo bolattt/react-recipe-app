@@ -6,6 +6,17 @@ export default function Create() {
   const [title, setTitle] = useState("");
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
+  const [newIngredient, setNewIngredient] = useState("");
+  const [ingredients, setNewIngredients] = useState([]);
+
+  function handleAdd(e) {
+    e.preventDefault();
+    const ing = newIngredient.trim();
+    if (ing && !ingredients.includes(ing)) {
+      setNewIngredient([...ingredients, ing]);
+    }
+    setNewIngredient("");
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,6 +36,19 @@ export default function Create() {
             onChange={(e) => setTitle(e.target.value)}
             required
           />
+        </label>
+        <label>
+          <span>Recipe Ingredients:</span>
+          <div className="ingredients">
+            <input
+              type="text"
+              onChange={(e) => setNewIngredient(e.target.value)}
+              value={newIngredient}
+            />
+            <button className="btn" onClick={handleAdd}>
+              add
+            </button>
+          </div>
         </label>
         <label>
           <span>Recipe Method:</span>
