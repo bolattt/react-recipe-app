@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./Create.css";
 
 export default function Create() {
@@ -8,14 +8,17 @@ export default function Create() {
   const [cookingTime, setCookingTime] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setNewIngredients] = useState([]);
+  const ref = useRef(null);
 
   function handleAdd(e) {
     e.preventDefault();
     const ing = newIngredient.trim();
     if (ing && !ingredients.includes(ing)) {
-      setNewIngredient([...ingredients, ing]);
+      setNewIngredients([...ingredients, ing]);
     }
+    console.log(ingredients);
     setNewIngredient("");
+    ref.current.focus();
   }
 
   function handleSubmit(e) {
@@ -44,6 +47,7 @@ export default function Create() {
               type="text"
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
+              ref={ref}
             />
             <button className="btn" onClick={handleAdd}>
               add
@@ -58,6 +62,13 @@ export default function Create() {
             required
           ></textarea>
         </label>
+
+        <p>
+          Current Ingredients:{" "}
+          {ingredients.map((i) => (
+            <em>{i},</em>
+          ))}
+        </p>
 
         <label>
           <span>Cooking time (minutes):</span>
