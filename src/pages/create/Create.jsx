@@ -1,5 +1,6 @@
-import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 import "./Create.css";
 
 export default function Create() {
@@ -9,6 +10,18 @@ export default function Create() {
   const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setNewIngredients] = useState([]);
   const ref = useRef(null);
+  const navigate = useNavigate("/");
+
+  const { postData, data, error } = useFetch(
+    "http://localhost:3000/recipes",
+    "POST"
+  );
+
+  useEffect(() => {
+    if (data) {
+      navigate("/");
+    }
+  }, [data]);
 
   function handleAdd(e) {
     e.preventDefault();
@@ -23,6 +36,12 @@ export default function Create() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    postData({
+      title,
+      ingredients,
+      method,
+      cookingTime: cookingTime + " minutes",
+    });
     console.log(title, method, cookingTime);
   }
 
@@ -54,6 +73,13 @@ export default function Create() {
             </button>
           </div>
         </label>
+        <p>
+          Current Ingredients:{" "}
+          {ingredients.map((i) => (
+            <em>{i},</em>
+          ))}
+        </p>
+
         <label>
           <span>Recipe Method:</span>
           <textarea
@@ -62,13 +88,6 @@ export default function Create() {
             required
           ></textarea>
         </label>
-
-        <p>
-          Current Ingredients:{" "}
-          {ingredients.map((i) => (
-            <em>{i},</em>
-          ))}
-        </p>
 
         <label>
           <span>Cooking time (minutes):</span>
