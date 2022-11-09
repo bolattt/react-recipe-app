@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import SearchBar from "./SearchBar";
-import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 
 export default function Navbar() {
-  const { color } = useContext(ThemeContext);
+  const { color } = useTheme();
   return (
     <div className="navbar" style={{ backgroundColor: color }}>
       <nav>
