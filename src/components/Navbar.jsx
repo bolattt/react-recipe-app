@@ -7,7 +7,7 @@ export default function Navbar() {
   const { color, changeColor } = useTheme();
   return (
     <div className="navbar" style={{ backgroundColor: color }}>
-      <nav onClick={() => changeColor("pink")}>
+      <nav>
         <Link to="/" className="brand">
           <h1>Cooking Panda</h1>
         </Link>

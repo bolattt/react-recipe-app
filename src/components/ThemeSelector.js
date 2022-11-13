@@ -6,10 +6,10 @@ const themeColors = ["#58249c", "#249c6b", "#b70233"];
 export default function ThemeSelector() {
   const { changeColor, changeMode, mode } = useTheme();
   const toggleMode = () => {
+    console.log(mode);
+
     changeMode(mode === "dark" ? "light" : "dark");
   };
-
-  console.log(mode);
 
   return (
     <div className="theme-selector">
@@ -18,7 +18,7 @@ export default function ThemeSelector() {
           onClick={toggleMode}
           src={modeIcon}
           alt="dark/light toggle icon"
-          style={{ filter: mode === "drk" ? "invert(100%)" : "invert" }}
+          style={{ filter: mode === "dark" ? "invert(100%)" : "invert(20%)" }}
         />
       </div>
       <div className="theme-buttons">

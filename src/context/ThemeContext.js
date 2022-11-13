@@ -6,7 +6,7 @@ const themeReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_COLOR":
       return { ...state, color: action.payload };
-    case "CHNAGE_MODE":
+    case "CHANGE_MODE":
       return { ...state, mode: action.payload };
 
     default:
