@@ -14,11 +14,10 @@ function Recipe() {
 
   useEffect(() => {
     setIsPending(true);
-    projectFirestore
+    const unsub = projectFirestore
       .collection("recipes")
       .doc(id)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         console.log(doc);
         if (doc.exists) {
           setIsPending(false);
@@ -28,8 +27,15 @@ function Recipe() {
           setError("Couldn't find recipe!");
         }
       });
+
+    return () => unsub();
   }, [id]);
 
+  const handleClick = () => {
+    projectFirestore.collection("recipes").doc(id).update({
+      title: "Something new",
+    });
+  };
   return (
     <div className={`recipe ${mode}`}>
       {error && <p className="error">{error}</p>}
@@ -39,6 +45,7 @@ function Recipe() {
           <h3 key={recipe.id}>{recipe.title}</h3>
           <p>{recipe.cookingTime} to make.</p>
           <p>{recipe.method}</p>
+          <button onClick={handleClick}>Update me</button>
         </>
       )}
     </div>
